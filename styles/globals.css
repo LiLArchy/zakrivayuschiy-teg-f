@@ -9,7 +9,7 @@
 }
 
 body {
-  margin: 0;
+  margin: 0 auto;
 }
 
 h1,
@@ -50,4 +50,11 @@ ol {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
   white-space: nowrap;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  border-top: 2px solid var(--main-color);
+  border-bottom: 2px solid var(--main-color);
 }

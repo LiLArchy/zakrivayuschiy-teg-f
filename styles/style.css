@@ -1,16 +1,380 @@
 /* Здесь вы напишете основную часть стилей страницы.
 
-Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, чтобы в HTML некоторые классы были названы особым образом:
+Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, 
+чтобы в HTML некоторые классы были названы особым образом:
 ✦ like-icon — для svg-иконки анимированного сердца
 ✦ card__like-button — для кнопки Like рядом с иконкой
-✦ card__icon-button — для кнопки, оборачивающей иконку
 ✦ card__icon-button — для кнопки, оборачивающей иконку
 ✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
 ✦ button__text — для обозначения текстового элемента внутри кнопки
 
 */
 
+/* Повторяющиеся стили для кнопок с заливкой */
+.button {
+  position: relative;
+  border: 2px solid var(--main-color);
+  background: var(--background-section-color);
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: var(--main-color);
+  transition: width 0.5s ease-in-out;
+}
+
+.button:hover::before {
+  width: 100%;
+}
+
+.button:focus-visible {
+  box-shadow: 2px 2px var(--main-color);
+  outline: none;
+}
+
+/* Повторяющиеся стили текста для кнопок с заливкой */
+.button__text {
+  font-family: var(--font-accent);
+  font-weight: var(--font-weight-content);
+  font-size: 14px;
+  line-height: 90%;
+  color: var(--button-text-color);
+}
+
+.button .button__text {
+  transition: color 0.5s ease-in-out;
+}
+
+.button:hover .button__text {
+  color: var(--button-text-color);
+}
+
+/* Повторяющиеся стили КНОПКИ И КАРТИНОК для кнопок с заливкой */
+.button svg {
+  transition: color 0.5s ease-in-out;
+}
+
+.button:hover svg {
+  color: var(--button-text-color);
+}
+
+/* Суппорт для всех кнопок с заливкой */
+@supports (mix-blend-mode: difference) {
+  .button__text {
+    mix-blend-mode: difference;
+    -webkit-mix-blend-mode: difference;
+  }
+
+  .button .button__text {
+    transition: none;
+  }
+
+  .button:hover .button__text {
+    color: var(--button-text-color);
+  }
+
+  .button svg {
+    transition: none;
+    color: var(--button-text-color);
+  }
+
+  .button:hover svg {
+    color: var(--button-text-color);
+  }
+
+  .button__icon {
+    mix-blend-mode: difference;
+    -webkit-mix-blend-mode: difference;
+  }
+}
+
+/* Стили для всей секции page*/
 .page {
-  min-inline-size: 320px;
-  min-block-size: 100dvb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-main);
+  color: var(--main-color);
+  font-variation-settings: "wght" var(--font-weight-content);
+  background: var(--background-fill);
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* Стили для всей секции header */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 100px auto;
+  inline-size: clamp(23.4375rem, 16.2852rem + 30.5164vw, 43.75rem);
+  padding: clamp(7.5rem, 7.3239rem + 0.7512vw, 8rem);
+  border: 2px solid var(--main-color);
+  background-color: var(--background-section-color);
+  font-family: var(--font-accent);
+  text-transform: uppercase;
+}
+
+/* Общий контейнер заголовка header*/
+.header__logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Заголовок h1 в header */
+.header__title {
+  font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
+}
+
+/* Текст под заголовком в heade*/
+.header__description {
+  font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
+}
+
+/* Стили для всей секции main */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  inline-size: clamp(23.4375rem, 16.3732rem + 30.1408vw, 43.5rem);
+  margin-bottom: 100px;
+}
+
+/* Стили для post - общий блок */
+.post {
+  border: 2px solid var(--main-color);
+  background-color: var(--background-section-color);
+}
+
+/* Стили для заголовка post */
+.post__title {
+  font-size: 18px;
+  font-variation-settings: "wght" var(--font-weight-title);
+  padding: 5px 10px;
+}
+
+/* Стили для блока с картинкой в post */
+.post__cover {
+  position: relative;
+}
+
+/* Стили для картинки в post */
+.post__cover__image {
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  aspect-ratio: 1 / 1;
+}
+
+/* Стили для водяного знака в post */
+.post__cover__watermark {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  opacity: 0.5;
+  font-size: 14px;
+  color: var(--main-color);
+  font-family: var(--font-accent);
+  font-weight: var(--font-weight-content);
+  text-shadow: 0 0 1px var(--background-section-color);
+}
+
+/* Суппорт для водяного знака в post */
+@supports (((text-stroke: 1px var(--background-section-color)) or (-webkit-text-stroke: 1px var(--background-section-color))) and (mix-blend-mode: hard-light)) {
+  .post__cover__watermark {
+    text-shadow: none;
+    -webkit-text-stroke: 1px var(--background-section-color);
+    text-stroke: 1px var(--background-section-color);
+    mix-blend-mode: hard-light;
+  }
+}
+
+/* Стили для блока с текстом внутри post*/
+.post__content {
+  font-size: 18px;
+  line-height: 21px;
+  font-variation-settings: "wght" var(--font-weight-content);
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 25px;
+}
+
+/* Стили для блока с кнопкой и иконкой Лайка внутри post*/
+.post__buttons {
+  display: flex;
+  justify-content: end;
+  gap: 7px;
+}
+
+/* Стили для кнопки Лайка */
+.card__like-button {
+  width: 130px;
+  height: 38px;
+  padding: 9px 17px;
+}
+
+/* Стили для группы SVG внутри card */
+.card__icon-button {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: end;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.card__icon-button:focus {
+  outline: none;
+}
+
+.card__icon-button:focus-within::before {
+  opacity: 100;
+  z-index: 0;
+}
+
+.card__icon-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  outline: 2px solid var(--main-color);
+  outline-offset: -2px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+/* Секция с кнопокй Сохранить */
+.footer__main-container {
+  display: flex;
+  justify-content: center;
+}
+
+.footer__button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 55px;
+  padding: 15px 20px;
+}
+
+/* Стили для dialog */
+.dialog {
+  width: clamp(21.3125rem, 20.9604rem + 1.5023vw, 22.3125rem);
+  padding: 30px;
+  border: 2px solid var(--main-color);
+  background: var(--background-section-color);
+}
+
+dialog::backdrop {
+  opacity: 0.75;
+  background: var(--main-color);
+}
+
+.dialog__container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  color: var(--main-color);
+}
+
+.dialog__warning {
+  display: flex;
+  gap: 20px;
+  font-family: var(--font-accent);
+  font-size: 14px;
+  line-height: 150%;
+  text-transform: uppercase;
+  min-width: clamp(16.0625rem, 15.2702rem + 3.3803vw, 18.3125rem);
+}
+
+.dialog__button {
+  width: 100%;
+  min-height: 38px;
+  padding: 9px 17px;
+}
+
+/* Цветовые фильтры для изображений*/
+.image_brightness {
+  filter: brightness(130%);
+}
+
+.image_contrast {
+  filter: opacity(0.8);
+}
+
+.image_blur {
+  filter: blur(0.3rem);
+}
+
+.image_opacity {
+  filter: contrast(150%);
+}
+
+.image_grayscale {
+  filter: grayscale(0.8);
+}
+
+.image_saturate {
+  filter: saturate(158%);
+}
+
+.image_sepia {
+  filter: sepia(80%);
+}
+
+.image_combinate {
+  filter: contrast(200%) blur(0.3rem);
+}
+
+/* Отдельные стилт для Дискеты в секциях Сохранить и 
+Диалог */
+.button__icon {
+  max-width: 21px;
+  height: auto;
+}
+
+.dialog__icon {
+  min-width: 39px;
+  height: auto;
+}
+
+/* Блок медиа-запросов */
+@media (width <=375px) {
+  .page {
+    width: 100%;
+    min-width: 375px;
+  }
+
+  .footer__button {
+    flex-direction: column;
+  }
+
+  .button__icon {
+    min-width: 28px;
+    height: auto;
+  }
+
+  .post__cover__watermark {
+    right: 13px;
+  }
+
+  .dialog {
+    padding: 30px 40px;
+  }
 }
